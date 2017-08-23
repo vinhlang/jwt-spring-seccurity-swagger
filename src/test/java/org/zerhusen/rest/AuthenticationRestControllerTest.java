@@ -73,69 +73,69 @@ public class AuthenticationRestControllerTest {
                 .content(new ObjectMapper().writeValueAsString(jwtAuthenticationRequest)))
                 .andExpect(status().is2xxSuccessful());
     }
-
-    @Test
-    @WithMockUser(roles = "USER")
-    public void successfulRefreshTokenWithUserRole() throws Exception {
-
-        Authority authority = new Authority();
-        authority.setId(0L);
-        authority.setName(AuthorityName.ROLE_USER);
-        List<Authority> authorities = Arrays.asList(authority);
-
-        User user = new User();
-        user.setUsername("username");
-        user.setAuthorities(authorities);
-        user.setEnabled(Boolean.TRUE);
-        user.setLastPasswordResetDate(new Date(System.currentTimeMillis() + 1000 * 1000));
-
-        JwtUser jwtUser = JwtUserFactory.create(user);
-
-        when(this.jwtTokenUtil.getUsernameFromToken(any())).thenReturn(user.getUsername());
-
-        when(this.userDetailsService.loadUserByUsername(eq(user.getUsername()))).thenReturn(jwtUser);
-
-        when(this.jwtTokenUtil.canTokenBeRefreshed(any(), any())).thenReturn(true);
-
-        this.mvc.perform(get("/refresh"))
-                .andExpect(status().is2xxSuccessful());
-    }
-
-    @Test
-    @WithMockUser(roles = "ADMIN")
-    public void successfulRefreshTokenWithAdminRole() throws Exception {
-
-        Authority authority = new Authority();
-        authority.setId(1L);
-        authority.setName(AuthorityName.ROLE_ADMIN);
-        List<Authority> authorities = Arrays.asList(authority);
-
-        User user = new User();
-        user.setUsername("admin");
-        user.setAuthorities(authorities);
-        user.setEnabled(Boolean.TRUE);
-        user.setLastPasswordResetDate(new Date(System.currentTimeMillis() + 1000 * 1000));
-
-        JwtUser jwtUser = JwtUserFactory.create(user);
-
-        when(this.jwtTokenUtil.getUsernameFromToken(any())).thenReturn(user.getUsername());
-
-        when(this.userDetailsService.loadUserByUsername(eq(user.getUsername()))).thenReturn(jwtUser);
-
-        when(this.jwtTokenUtil.canTokenBeRefreshed(any(), any())).thenReturn(true);
-
-        this.mvc.perform(get("/refresh"))
-                .andExpect(status().is2xxSuccessful());
-    }
-
-    @Test
-    @WithAnonymousUser
-    public void shouldGetUnauthorizedWithAnonymousUser() throws Exception {
-
-        this.mvc.perform(get("/refresh"))
-                .andExpect(status().isUnauthorized());
-
-    }
+//
+//    @Test
+//    @WithMockUser(roles = "USER")
+//    public void successfulRefreshTokenWithUserRole() throws Exception {
+//
+//        Authority authority = new Authority();
+//        authority.setId(0L);
+//        authority.setName(AuthorityName.ROLE_USER);
+//        List<Authority> authorities = Arrays.asList(authority);
+//
+//        User user = new User();
+//        user.setUsername("username");
+//        user.setAuthorities(authorities);
+//        user.setEnabled(Boolean.TRUE);
+//        user.setLastPasswordResetDate(new Date(System.currentTimeMillis() + 1000 * 1000));
+//
+//        JwtUser jwtUser = JwtUserFactory.create(user);
+//
+//        when(this.jwtTokenUtil.getUsernameFromToken(any())).thenReturn(user.getUsername());
+//
+//        when(this.userDetailsService.loadUserByUsername(eq(user.getUsername()))).thenReturn(jwtUser);
+//
+//        when(this.jwtTokenUtil.canTokenBeRefreshed(any(), any())).thenReturn(true);
+//
+//        this.mvc.perform(get("/refresh"))
+//                .andExpect(status().is2xxSuccessful());
+//    }
+//
+//    @Test
+//    @WithMockUser(roles = "ADMIN")
+//    public void successfulRefreshTokenWithAdminRole() throws Exception {
+//
+//        Authority authority = new Authority();
+//        authority.setId(1L);
+//        authority.setName(AuthorityName.ROLE_ADMIN);
+//        List<Authority> authorities = Arrays.asList(authority);
+//
+//        User user = new User();
+//        user.setUsername("admin");
+//        user.setAuthorities(authorities);
+//        user.setEnabled(Boolean.TRUE);
+//        user.setLastPasswordResetDate(new Date(System.currentTimeMillis() + 1000 * 1000));
+//
+//        JwtUser jwtUser = JwtUserFactory.create(user);
+//
+//        when(this.jwtTokenUtil.getUsernameFromToken(any())).thenReturn(user.getUsername());
+//
+//        when(this.userDetailsService.loadUserByUsername(eq(user.getUsername()))).thenReturn(jwtUser);
+//
+//        when(this.jwtTokenUtil.canTokenBeRefreshed(any(), any())).thenReturn(true);
+//
+//        this.mvc.perform(get("/refresh"))
+//                .andExpect(status().is2xxSuccessful());
+//    }
+//
+//    @Test
+//    @WithAnonymousUser
+//    public void shouldGetUnauthorizedWithAnonymousUser() throws Exception {
+//
+//        this.mvc.perform(get("/refresh"))
+//                .andExpect(status().isUnauthorized());
+//
+//    }
 
 }
 

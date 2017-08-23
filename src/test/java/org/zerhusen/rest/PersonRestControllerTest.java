@@ -44,13 +44,13 @@ public class PersonRestControllerTest {
                 .andExpect(status().isUnauthorized());
     }
 
-    @Test
-    @WithMockUser(roles = "USER")
-    public void getPersonsSuccessfullyWithUserRole() throws Exception{
-
-        this.mvc.perform(get("/persons"))
-                .andExpect(status().is2xxSuccessful());
-    }
+//    @Test
+//    @WithMockUser(roles = "USER")
+//    public void getPersonsSuccessfullyWithUserRole() throws Exception{
+//
+//        this.mvc.perform(get("/persons"))
+//                .andExpect(status().is2xxSuccessful());
+//    }
 
 }
 

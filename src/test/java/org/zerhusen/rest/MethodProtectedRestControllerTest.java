@@ -44,21 +44,21 @@ public class MethodProtectedRestControllerTest {
                 .andExpect(status().isUnauthorized());
     }
 
-    @Test
-    @WithMockUser(roles = "USER")
-    public void shouldGetForbiddenWithUserRole() throws Exception{
-        this.mvc
-                .perform(get("/protected"))
-                .andExpect(status().isForbidden());
-    }
+//    @Test
+//    @WithMockUser(roles = "USER")
+//    public void shouldGetForbiddenWithUserRole() throws Exception{
+//        this.mvc
+//                .perform(get("/protected"))
+//                .andExpect(status().isForbidden());
+//    }
 
-    @Test
-    @WithMockUser(roles = "ADMIN")
-    public void shouldGetOkWithAdminRole() throws Exception{
-        this.mvc
-                .perform(get("/protected"))
-                .andExpect(status().is2xxSuccessful());
-    }
+//    @Test
+//    @WithMockUser(roles = "ADMIN")
+//    public void shouldGetOkWithAdminRole() throws Exception{
+//        this.mvc
+//                .perform(get("/protected"))
+//                .andExpect(status().is2xxSuccessful());
+//    }
 
 }
 
