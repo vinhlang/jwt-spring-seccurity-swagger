@@ -20,11 +20,11 @@ public class SwaggerConfig {
 
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.SWAGGER_2).host("192.168.33.11:9000")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("org.zerhusen"))
                 .paths(regex("/.*"))
-                .build().apiInfo(metaData()).host("localhost:8080/");
+                .build().apiInfo(metaData()).host("192.168.33.11:9000");
     }
 
     private ApiInfo metaData() {
