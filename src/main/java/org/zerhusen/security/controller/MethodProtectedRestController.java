@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "protected", description = "", tags = "Protected")
 public class MethodProtectedRestController {
 
-    @ApiOperation(value = "The login request", response = Void.class)
+    @ApiOperation(value = "Method for admin role", response = Void.class)
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Admin founded", response = String.class)
         ,
@@ -30,7 +30,7 @@ public class MethodProtectedRestController {
         return ResponseEntity.ok("Greetings from admin protected method!");
     }
 
-    @ApiOperation(value = "The login request", response = Void.class)
+    @ApiOperation(value = "Method for all user", response = Void.class)
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "success", response = String.class)
     })
