@@ -119,25 +119,20 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>DESKTOP-B3MC8P9-snapshots</name>
+            <url>http://localhost:8081/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>auto-clean</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
@@ -274,7 +269,7 @@
                             <javadoc>${project.build.directory}/${project.build.finalName}-javadoc.${project.packaging}</javadoc>
                             <generatePom>false</generatePom>
                             <pomFile>pom.xml</pomFile>
-                            <version>${project.version}</version>
+                            <version>.${project.version}</version>
                         </configuration>
                     </execution>
                 </executions>
@@ -311,7 +306,6 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-            
         </plugins>
     </build>
 </project>
