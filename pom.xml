@@ -26,9 +26,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/szerhusenBC/jwt-spring-security-demo.git</connection>
-        <url>https://github.com/szerhusenBC/jwt-spring-security-demo</url>
-        <developerConnection>scm:git:git@github.com/szerhusenBC/jwt-spring-security-demo.git</developerConnection>
+        <connection>scm:git:git://github.com/vinhlang/jwt-spring-seccurity-swagger.git</connection>
+        <url>https://github.com/vinhlang/jwt-spring-seccurity-swagger</url>
+        <developerConnection>scm:git:git@github.com/vinhlang/jwt-spring-seccurity-swagger.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
