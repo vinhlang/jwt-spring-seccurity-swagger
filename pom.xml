@@ -197,7 +197,7 @@
                                 <manifestEntries>
                                     <Built-By>${user.name}</Built-By>
                                     <Built-OS>${os.name}</Built-OS>
-                                    <!--<Build-Date>${maven.build.timestamp}</Build-Date>-->
+                                    <Build-Date>${maven.build.timestamp}</Build-Date>
                                     <Class-Path>.</Class-Path>
                                 </manifestEntries>
                             </manifestSection>
@@ -278,7 +278,7 @@
                 </configuration>
             </plugin>
  
-            <!-- Deploy on remote repository -->
+<!--             Deploy on remote repository 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -305,7 +305,7 @@
                 <configuration>
                     <skip>true</skip>
                 </configuration>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 </project>
