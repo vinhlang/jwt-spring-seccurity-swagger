@@ -292,7 +292,7 @@
                         <phase>deploy</phase>
                         <configuration>
                             <repositoryId>release-libs</repositoryId>
-                            <url>http://103.56.158.144:8081/artifactory/libs-snapshot-local</url>
+                            <url>http://localhost:8081/artifactory/libs-snapshot-local</url>
                             <file>${project.build.directory}/${project.artifactId}/${artifactId}.${project.version}.${project.packaging}</file>
                             <sources>${project.build.directory}/${project.build.finalName}-sources.${project.packaging}</sources>
                             <javadoc>${project.build.directory}/${project.build.finalName}-javadoc.${project.packaging}</javadoc>
