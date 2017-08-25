@@ -298,7 +298,7 @@
                             <javadoc>${project.build.directory}/${project.build.finalName}-javadoc.${project.packaging}</javadoc>
                             <generatePom>false</generatePom>
                             <pomFile>pom.xml</pomFile>
-                            <version>${project.version}.</version>
+                            <version>${project.version}</version>
                         </configuration>
                     </execution>
                 </executions>
