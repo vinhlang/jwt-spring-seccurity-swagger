@@ -119,54 +119,193 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
+    <distributionManagement>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>zabbix-server-dts-ssd.novalocal-snapshots</name>
+            <url>http://103.56.158.144:8081/artifactory/libs-release-local</url>
+        </snapshotRepository>
+    </distributionManagement>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
+            
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <doCheck>true</doCheck>
+                    <doUpdate>true</doUpdate>
                 </configuration>
             </plugin>
-
+            
             <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>${docker-maven-plugin.version}</version>
-
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${project.artifactId}/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Create jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.5</version>
                 <configuration>
-                    <imageName>hubae/jwt-spring-security-demo</imageName>
-                    <baseImage>openjdk:8</baseImage>
-                    <imageTags>
-                        <imageTag>${project.version}</imageTag>
-                        <imageTag>latest</imageTag>
-                    </imageTags>
-
-                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
-
-                    <!-- copy the service's jar file from target into the root directory of the image -->
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-
-                    <serverId>docker-hub</serverId>
-                    <registryUrl>https://index.docker.io/v1/</registryUrl>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>org.zerhusen.JwtDemoApplication</mainClass>
+                        </manifest>
+                        <manifestSections>
+                            <manifestSection>
+                                <name>APPLICATION</name>
+                                <manifestEntries>
+                                    <Implementation-Title>${project.name}</Implementation-Title>
+                                    <Implementation-Vendor>Luca Merello</Implementation-Vendor>
+                                    <Implementation-Version>${project.version}.>$\{buildNumber}</Implementation-Version>
+                                </manifestEntries>
+                            </manifestSection>
+                            <manifestSection>
+                                <name>BUILD</name>
+                                <manifestEntries>
+                                    <Built-By>${user.name}</Built-By>
+                                    <Built-OS>${os.name}</Built-OS>
+                                    <Build-Date>${maven.build.timestamp}</Build-Date>
+                                    <Class-Path>.</Class-Path>
+                                </manifestEntries>
+                            </manifestSection>
+                        </manifestSections>
+                    </archive>
+                    <finalName>${project.artifactId}/${artifactId}-${project.version}.>$\{buildNumber}</finalName>
+                </configuration>
+            </plugin>
+ 
+            <!-- Create sources -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
+            </plugin>
+ 
+            <!-- Create javadocs -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <phase>verify</phase>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                            <tags>
+                                <tag>
+                                    <name>Immutable</name>
+                                    <placement>a</placement>
+                                    <head>Immutable</head>
+                                </tag>
+                            </tags>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+ 
+ 
+            <!-- Install on local repository -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+                <executions>
+                    <execution>
+                        <id>Install customized file(s) on local repository</id>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <phase>install</phase>
+                        <configuration>
+                            <file>${project.build.directory}/${project.artifactId}/${artifactId}-${project.version}.>$\{buildNumber}.${project.packaging}</file>
+                            <sources>${project.build.directory}/${project.build.finalName}-sources.${project.packaging}</sources>
+                            <javadoc>${project.build.directory}/${project.build.finalName}-javadoc.${project.packaging}</javadoc>
+                            <generatePom>false</generatePom>
+                            <pomFile>pom.xml</pomFile>
+                            <version>${project.version}.>$\{buildNumber}</version>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+ 
+            <!-- Deploy on remote repository -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+                <executions>
+                    <execution>
+                        <id>Install customized file(s) on remote repository</id>
+                        <goals>
+                            <goal>deploy-file</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                        <configuration>
+                            <repositoryId>release-libs</repositoryId>
+                            <url>http://103.56.158.144:8081/artifactory/libs-snapshot-local/</url>
+                            <file>${project.build.directory}/${project.artifactId}/${artifactId}-${project.version}.>$\{buildNumber}.${project.packaging}</file>
+                            <sources>${project.build.directory}/${project.build.finalName}-sources.${project.packaging}</sources>
+                            <javadoc>${project.build.directory}/${project.build.finalName}-javadoc.${project.packaging}</javadoc>
+                            <generatePom>false</generatePom>
+                            <pomFile>pom.xml</pomFile>
+                            <version>${project.version}.>$\{buildNumber}</version>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-
 </project>
