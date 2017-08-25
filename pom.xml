@@ -189,7 +189,7 @@
                                 <manifestEntries>
                                     <Implementation-Title>${project.name}</Implementation-Title>
                                     <Implementation-Vendor>Luca Merello</Implementation-Vendor>
-                                    <Implementation-Version>${project.version}.>$\{buildNumber}</Implementation-Version>
+                                    <Implementation-Version>${project.version}.${buildNumber}</Implementation-Version>
                                 </manifestEntries>
                             </manifestSection>
                             <manifestSection>
@@ -203,7 +203,7 @@
                             </manifestSection>
                         </manifestSections>
                     </archive>
-                    <finalName>${project.artifactId}/${artifactId}-${project.version}.>$\{buildNumber}</finalName>
+                    <finalName>${project.artifactId}/${artifactId}-${project.version}.${buildNumber}</finalName>
                 </configuration>
             </plugin>
  
@@ -264,12 +264,12 @@
                         </goals>
                         <phase>install</phase>
                         <configuration>
-                            <file>${project.build.directory}/${project.artifactId}/${artifactId}-${project.version}.>$\{buildNumber}.${project.packaging}</file>
+                            <file>${project.build.directory}/${project.artifactId}/${artifactId}-${project.version}.${buildNumber}.${project.packaging}</file>
                             <sources>${project.build.directory}/${project.build.finalName}-sources.${project.packaging}</sources>
                             <javadoc>${project.build.directory}/${project.build.finalName}-javadoc.${project.packaging}</javadoc>
                             <generatePom>false</generatePom>
                             <pomFile>pom.xml</pomFile>
-                            <version>${project.version}.>$\{buildNumber}</version>
+                            <version>${project.version}.${buildNumber}</version>
                         </configuration>
                     </execution>
                 </executions>
@@ -293,12 +293,12 @@
                         <configuration>
                             <repositoryId>release-libs</repositoryId>
                             <url>http://103.56.158.144:8081/artifactory/libs-snapshot-local/</url>
-                            <file>${project.build.directory}/${project.artifactId}/${artifactId}-${project.version}.>$\{buildNumber}.${project.packaging}</file>
+                            <file>${project.build.directory}/${project.artifactId}/${artifactId}-${project.version}.${buildNumber}.${project.packaging}</file>
                             <sources>${project.build.directory}/${project.build.finalName}-sources.${project.packaging}</sources>
                             <javadoc>${project.build.directory}/${project.build.finalName}-javadoc.${project.packaging}</javadoc>
                             <generatePom>false</generatePom>
                             <pomFile>pom.xml</pomFile>
-                            <version>${project.version}.>$\{buildNumber}</version>
+                            <version>${project.version}.$\{buildNumber}</version>
                         </configuration>
                     </execution>
                 </executions>
