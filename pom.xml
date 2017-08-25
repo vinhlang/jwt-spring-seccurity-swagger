@@ -121,8 +121,8 @@
     </dependencies>
     <distributionManagement>
         <snapshotRepository>
-            <id>snapshots</id>
-            <name>zabbix-server-dts-ssd.novalocal-snapshots</name>
+            <id>central</id>
+            <name>zabbix-server-dts-ssd.novalocal-releases</name>
             <url>http://103.56.158.144:8081/artifactory/libs-release-local</url>
         </snapshotRepository>
     </distributionManagement>
