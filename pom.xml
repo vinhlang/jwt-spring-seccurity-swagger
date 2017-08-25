@@ -5,7 +5,7 @@
 
     <groupId>org.zerhusen</groupId>
     <artifactId>jwt-spring-security-swagger</artifactId>
-    <version>2.2-SNAPSHOT</version>
+    <version>2.2</version>
     <packaging>jar</packaging>
 
     <name>jwt-spring-security-swagger</name>
