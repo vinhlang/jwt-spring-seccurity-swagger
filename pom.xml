@@ -271,7 +271,7 @@
                 </configuration>
             </plugin>
  
-             <!--Deploy on remote repository--> 
+            <!--Deploy on remote repository--> 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -285,7 +285,7 @@
                         <phase>deploy</phase>
                         <configuration>
                             <repositoryId>release-libs</repositoryId>
-                             <url>http://localhost:8081/artifactory/libs-release-local</url>
+                            <url>http://localhost:8081/artifactory/libs-release-local</url>
                             <file>${project.build.directory}/${project.artifactId}/${artifactId}.${project.version}.${project.packaging}</file>
                             <sources>${project.build.directory}/${project.build.finalName}-sources.${project.packaging}</sources>
                             <javadoc>${project.build.directory}/${project.build.finalName}-javadoc.${project.packaging}</javadoc>
@@ -299,33 +299,33 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-            <plugin>
-            <groupId>org.jfrog.buildinfo</groupId>
-            <artifactId>artifactory-maven-plugin</artifactId>
-            <version>2.6.1</version>
-            <inherited>false</inherited>
-            <executions>
-                <execution>
-                    <id>build-info</id>
-                    <goals>
-                        <goal>publish</goal>
-                    </goals>
-                    <configuration>
-                        <deployProperties>
-                            <gradle>awesome</gradle>
-                            <review.team>qa</review.team>
-                        </deployProperties>
-                        <publisher>
-                            <contextUrl>http://localhost:8081</contextUrl>
-                            <username>admin</username>
-                            <password>password</password>
-                            <repoKey>libs-release-local</repoKey>
-                            <snapshotRepoKey>libs-snapshot-local</snapshotRepoKey>
-                        </publisher>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
+<!--            <plugin>
+                <groupId>org.jfrog.buildinfo</groupId>
+                <artifactId>artifactory-maven-plugin</artifactId>
+                <version>2.6.1</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>build-info</id>
+                        <goals>
+                            <goal>publish</goal>
+                        </goals>
+                        <configuration>
+                            <deployProperties>
+                                <gradle>awesome</gradle>
+                                <review.team>qa</review.team>
+                            </deployProperties>
+                            <publisher>
+                                <contextUrl>http://localhost:8081</contextUrl>
+                                <username>admin</username>
+                                <password>password</password>
+                                <repoKey>libs-release-local</repoKey>
+                                <snapshotRepoKey>libs-snapshot-local</snapshotRepoKey>
+                            </publisher>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>-->
         </plugins>
     </build>
 </project>
