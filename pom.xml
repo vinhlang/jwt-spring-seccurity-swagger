@@ -279,7 +279,7 @@
                 </configuration>
             </plugin>
  
-            <!--            Deploy on remote repository 
+            <!--Deploy on remote repository--> 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -306,7 +306,7 @@
                 <configuration>
                     <skip>true</skip>
                 </configuration>
-            </plugin>-->
+            </plugin>
             <!--            <plugin>
                 <groupId>org.jfrog.buildinfo</groupId>
                 <artifactId>artifactory-maven-plugin</artifactId>
