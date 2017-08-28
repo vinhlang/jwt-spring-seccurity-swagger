@@ -32,14 +32,6 @@
         <tag>HEAD</tag>
     </scm>
 
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <name>DESKTOP-B3MC8P9-releases</name>
-            <url>http://localhost:8081/artifactory/libs-release-local</url>
-        </repository>
-    </distributionManagement>
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -292,7 +284,7 @@
                         </goals>
                         <phase>deploy</phase>
                         <configuration>
-                            <repositoryId>release-libs</repositoryId>
+                            <repositoryId>central</repositoryId>
                             <url>http://localhost:8081/artifactory/libs-release-local</url>
                             <file>${project.build.directory}/${project.artifactId}/${artifactId}.${project.version}.${project.packaging}</file>
                             <sources>${project.build.directory}/${project.build.finalName}-sources.${project.packaging}</sources>
